@@ -11,7 +11,7 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 @Component({
   components: {
-    HelloWorld2,
+    HelloWorld3,
   },
 })
 export default class Home extends Vue {}
