@@ -1,19 +1,46 @@
 <template>
   <main class="form-signin">
-    <form>
-      <h1 class="h3 mb-3 fw-normal">サインインする</h1>
-      <label class="visually-hidden">メールアドレス</label>
-      <input type="email" class="form-control" placeholder="メールアドレス" required autofocus>
-      <label class="visually-hidden">パスワード</label>
-      <input type="password" class="form-control" placeholder="パスワード" required>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">サインイン</button>
+    <form @submit.prevent="submit">
+      <h1 class="h3 mb-3 fw-normal">登録</h1>
+
+      <input v-model="firstName" class="form-control" placeholder="名">
+      <input v-model="lastName" class="form-control" placeholder="姓">
+      <input v-model="email" type="email" class="form-control" placeholder="メールアドレス">
+      <input v-model="password" type="password" class="form-control" placeholder="パスワード">
+      <input v-model="passwordConfirm" type="password" class="form-control" placeholder="パスワード確認">
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">登録</button>
     </form>
   </main>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "Register"
+  name: "Register",
+  data() {
+    return {
+      firstName: '',
+      lastName:'',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    }
+  },
+  methods: {
+    async submit() {
+      await axios.post('register', {
+        first_name: this.firstName,
+        last_name: this.lastName,
+        email: this.email,
+        password: this.password,
+        password_confirm: this.passwordConfirm
+      })
+
+      await this.$router.push('/login')
+    }
+  }
 }
 </script>
 

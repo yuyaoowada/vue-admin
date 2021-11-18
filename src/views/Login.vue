@@ -1,19 +1,37 @@
 <template>
   <main class="form-signin">
-    <form>
+    <form @submit.prevent="submit">
       <h1 class="h3 mb-3 fw-normal">サインインする</h1>
-      <label class="visually-hidden">メールアドレス</label>
-      <input type="email" class="form-control" placeholder="メールアドレス" required autofocus>
-      <label class="visually-hidden">パスワード</label>
-      <input type="password" class="form-control" placeholder="パスワード" required>
+
+      <input v-model="email" type="email" class="form-control" placeholder="メールアドレス">
+      <input v-model="password" type="password" class="form-control" placeholder="パスワード">
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">サインイン</button>
     </form>
   </main>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "Login"
+  name: "Login",
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  methods: {
+    async submit() {
+      await axios.post('login', {
+        email:this.email,
+        password: this.password,
+      })
+
+      await this.$router.push('/')
+    }
+  }
 }
 </script>
 
